@@ -1,48 +1,40 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>{{title}}</h2>
-    <ul>
-      <li v-for="(todo,index) in todos" :id="index">
+    <h1>{{title}}</h1>
+    <ul class="todos">
+      <li v-for="(todo,index) in todos" :id="index" :class="{'checked':todo.done}">
         <label>{{index+1}}.{{todo.value}}</label>
+        <time>{{todo.created | date}}</time>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import './assets/site.less';
+import './assets/todos.less';
+//导入时间格式化专用包
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
 export default {
   name : 'app',
   data () {
     return {
-      title : 'Vue-todoList',
-      msg : 'Welcome to Your Vue.js App',
+      title : '备忘录',
       todos :  [
-        {value:"阅读一本关于前段开发的书!",done:false},
-        {value:"中午饭烹饪板栗炖鸡！",done:false},
-        {value:"早上蒸紫薯吃!",done:true}
+        {value:"阅读一本关于前端开发的书!",done:false,created:Date.now()},
+        {value:"中午饭烹饪板栗炖鸡！",done:false,created:Date.now()+3600000},
+        {value:"早上蒸紫薯吃!",done:true,created:Date.now()-3600000}
       ]
+    }
+  },
+  //加入date过滤器
+  filters: {
+    date(val) {
+      return moment(val).calendar();
     }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-a {
-  color: #42b983;
-}
-</style>
