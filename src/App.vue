@@ -2,29 +2,27 @@
   <div id="app">
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h2>{{title}}</h2>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
+      <li v-for="(todo,index) in todos" :id="index">
+        <label>{{index+1}}.{{todo.value}}</label>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
+  name : 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      title : 'Vue-todoList',
+      msg : 'Welcome to Your Vue.js App',
+      todos :  [
+        {value:"阅读一本关于前段开发的书!",done:false},
+        {value:"中午饭烹饪板栗炖鸡！",done:false},
+        {value:"早上蒸紫薯吃!",done:true}
+      ]
     }
   }
 }
@@ -42,16 +40,6 @@ export default {
 
 h1, h2 {
   font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
 }
 
 a {
